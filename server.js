@@ -6,6 +6,24 @@ const port = process.env.PORT || 3000;
 // import your models here to use throught your API
 const app = express();
 
+// error status code constants
+const STATUS_SERVER_ERROR = 500;
+const STATUS_USER_ERROR = 422;
+
 app.use(bodyParser.json());
 
-server.listen(port).then()
+
+// Your API will be built out here.
+
+mongoose.Promise = global.Promise;
+// implement your connect method here so that the server here will connect.
+
+/* eslint no-console: 0 */
+connect.then(() => {
+  server.listen(port);
+  console.log(`Server Listening on ${port}`);
+}, (err) => {
+  console.log('\n************************');
+  console.log("ERROR: Couldn't connect to MongoDB. Do you have it running?");
+  console.log('************************\n');
+});
