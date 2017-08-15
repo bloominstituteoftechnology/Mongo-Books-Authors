@@ -22,3 +22,8 @@ const connect = mongoose.connect(
 // if you've done this right, and your `mongod` server is running you should be able to start your node server now and see it connect.
 
 ```
+
+### Mongoose Schema
+* If you open the `models.js` file you'll see the object your building for. 
+* This will be a common pattern you'll see in your future endeavors i.e. You get a list of requirements for your data set, and build towards that. Or.. sometimes you just aren't that lucky and you've got to do this on your own.
+* Lets build out our schema. Start by listing the Schema types you'll need for this file. 
