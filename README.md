@@ -3,14 +3,14 @@
 ## Topics To Cover
 * Schema Types
   * [String, Number, Buffer, Date, Boolean, Mixed, ObjectId, Array](http://mongoosejs.com/docs/schematypes.html)
-* [$ne]()
-* [$and]()
-* [$or]()
-* [$in]()
-* [$gt]()
-* [$sum]()
-* [count]()
-* [order by]()
+* [$ne](https://docs.mongodb.com/v3.2/reference/operator/query/ne/)
+* [$and](https://docs.mongodb.com/v3.2/reference/operator/query/and/index.html)
+* [$or](https://docs.mongodb.com/v3.2/reference/operator/query/or/index.html)
+* [$in](https://docs.mongodb.com/v3.2/reference/operator/query/in/#op._S_in)
+* [$gt](https://docs.mongodb.com/v3.2/reference/operator/query/gt/)
+* [$sum](https://docs.mongodb.com/v3.2/reference/operator/aggregation/sum/index.html)
+* [$orderby](https://docs.mongodb.com/v3.2/reference/operator/meta/orderby/index.html)
+* [count](https://docs.mongodb.com/v3.2/reference/command/count/index.html)
 
 
 ## Running the Project
