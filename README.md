@@ -26,7 +26,8 @@
 * RUN: `node populateDbScript.js` get receive all your data.
 
 ### Todos:
-* write a `GET` request to `/people` that simply returns all the people.
-* write a `GET` request to `/people/:sorted` that takes the sorted params object and returns back a list of sorted data alphebetically.
+* write a `GET` request to `/users` that simply returns all the people.
+* write a `GET` request to `/users/:sorted` that takes the sorted params object and returns back a list of sorted data alphebetically.
   * hint sorted can be `asc` or `desc` so in your `.sort()` method you'll have to specify what the user wants by pulling that off of the `sorted` param
-* lastly write a `PUT` that updates a users name
+* write a `GET` request `/user-get-freinds/:id` that returns a single users's friends.
+* lastly write a `PUT` that updates a users `firstName` `lastName` 
