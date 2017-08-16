@@ -11,8 +11,9 @@ const PersonSchema = ({
       required: true,
     },
     email: {
-      type: String
-
+      type: String,
+      required: true,
+      unique: true,
     },
     friends: [],
     age: Number,

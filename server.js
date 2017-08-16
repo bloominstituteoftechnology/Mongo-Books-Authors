@@ -1,9 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const Person = require('./models.js');
 
 const port = process.env.PORT || 3000;
-// import your models here to use throught your API
+
 const app = express();
 
 // error status code constants
@@ -13,6 +14,7 @@ const STATUS_USER_ERROR = 422;
 app.use(bodyParser.json());
 
 // Your API will be built out here.
+
 
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect(
