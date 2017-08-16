@@ -29,4 +29,5 @@
 * write a `GET` request to `/users/:sorted` that takes the sorted params object and returns back a list of sorted data alphebetically.
   * hint sorted can be `asc` or `desc` so in your `.sort()` method you'll have to specify what the user wants by pulling that off of the `sorted` param
 * write a `GET` request `/user-get-freinds/:id` that returns a single users's friends.
+### Extra Credit: 
 * lastly write a `PUT` that updates a users `firstName` `lastName` 
