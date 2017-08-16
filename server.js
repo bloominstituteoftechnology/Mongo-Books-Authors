@@ -12,15 +12,16 @@ const STATUS_USER_ERROR = 422;
 
 app.use(bodyParser.json());
 
-
 // Your API will be built out here.
 
 mongoose.Promise = global.Promise;
-// implement your connect method here so that the server here will connect.
-
+const connect = mongoose.connect(
+  'mongodb://localhost/people',
+  { useMongoClient: true }
+);
 /* eslint no-console: 0 */
 connect.then(() => {
-  server.listen(port);
+  app.listen(port);
   console.log(`Server Listening on ${port}`);
 }, (err) => {
   console.log('\n************************');

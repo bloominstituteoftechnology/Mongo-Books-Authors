@@ -1,3 +1,28 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const PersonSchema = ({
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String
+
+    },
+    friends: [],
+    age: Number,
+    gender: String,
+    location: String,
+    dateOfBirth: Date,
+})
+
+module.exports = mongoose.model('Person', PersonSchema);
+
 /* pull in mongoose and write yoru schema here.
 *
 * we are building for this type of collection

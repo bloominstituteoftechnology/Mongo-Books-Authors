@@ -20,18 +20,13 @@
 * fire up your `mongod` server from your root dir or create a `data` dir in this project to store your documents from mongo there. `mongod --dbpath data`.
 * To get this project up and running you'll have to start by creating a connection to your mongo server in the `server.js` file. Be sure to use `mongoose.connect` to ensure that you're able to use the `ODM`
 
-```
-// your code can look something like this. We'll be dealing with blogposts in this sprint so name your collection posts.
-const connect = mongoose.connect(
-  '<pass-your-mongo-string-here>',
-  { useMongoClient: true }
-);
-
-// if you've done this right, and your `mongod` server is running you should be able to start your node server now and see it connect.
-
-```
-
 ### Mongoose Schema
-* If you open the `models.js` file you'll see the object your building for. 
-* This will be a common pattern you'll see in your future endeavors i.e. You get a list of requirements for your data set, and build towards that. Or.. sometimes you just aren't that lucky and you've got to do this on your own.
-* Lets build out our schema. Start by listing the Schema types you'll need for this file. 
+* When you open `models.js` you'll see we've already included your Schema. You're welcome. 
+* You'll also notice that this sprint comes with a `people.json` file, and a `populateDbScript.js`. this script will grab those `people` and add them into your db as long as you have your mongo server up and running. 
+* RUN: `node populateDbScript.js` get receive all your data.
+
+### Todos:
+* write a `GET` request to `/people` that simply returns all the people.
+* write a `GET` request to `/people/:sorted` that takes the sorted params object and returns back a list of sorted data alphebetically.
+  * hint sorted can be `asc` or `desc` so in your `.sort()` method you'll have to specify what the user wants by pulling that off of the `sorted` param
+* lastly write a `PUT` that updates a users name
