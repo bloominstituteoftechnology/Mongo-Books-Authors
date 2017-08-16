@@ -18,7 +18,6 @@
 * `cd` into your project directory.
 * `npm install` to receive your dependencies.
 * fire up your `mongod` server from your root dir or create a `data` dir in this project to store your documents from mongo there. `mongod --dbpath data`.
-* To get this project up and running you'll have to start by creating a connection to your mongo server in the `server.js` file. Be sure to use `mongoose.connect` to ensure that you're able to use the `ODM`
 
 ### Mongoose Schema
 * When you open `models.js` you'll see we've already included your Schema. You're welcome. 
