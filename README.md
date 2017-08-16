@@ -1,8 +1,16 @@
 # Mongo II Mini
 
 ## Topics To Cover
-* Advanced Mongoose queries
-* 
+* Schema Types
+  * [String, Number, Buffer, Date, Boolean, Mixed, ObjectId, Array](http://mongoosejs.com/docs/schematypes.html)
+* [$ne]()
+* [$and]()
+* [$or]()
+* [$in]()
+* [$gt]()
+* [$sum]()
+* [count]()
+* [order by]()
 
 
 ## Running the Project
