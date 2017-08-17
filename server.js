@@ -14,7 +14,47 @@ const STATUS_USER_ERROR = 422;
 app.use(bodyParser.json());
 
 // Your API will be built out here.
+app.get('/users', (req, res) => {
+  Person.find({}, (err, user) => {
+    if (err) {
+      res.status(STATUS_SERVER_ERROR);
+      res.json(err);
+    } else {
+      res.json(users);
+    }
+  });
+});
 
+app.get('/users/:direction', (req, res) => {
+  const { direction } = req.params;
+  let order = direction;
+  if (direction === 'asc') {
+    order = 1;
+  }
+  Person.find({})
+  .sort({ firstName : order })
+  .exec((err, users) => {
+    if (err) {
+      res.status(STATUS_SERVER_ERROR);
+      res.json({ error: err});
+    } else {
+      res.json(users);
+    }
+  })
+});
+
+app.get('/user-get-friends/:id', (req, res) => {
+  const { id } = req.params;
+
+  Person.findById(id, (err, user) => {
+    if(err) {
+      res.status(STATUS_SERVER_ERROR);
+      res.json(err);
+    } else {
+      res.json(user.friends);
+    }
+  });
+});
 
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect(
