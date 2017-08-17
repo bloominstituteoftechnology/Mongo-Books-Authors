@@ -81,10 +81,12 @@ $  node populateDbScript.js
     done
 ```
 
+* launch server: `nodemon server.js` - DONE √
+
 ### Todos:
 * write a `GET` request to `/users` that simply returns all the people. - DONE √
 * write a `GET` request to `/users/:direction` that takes the given string and returns back a list of sorted data alphebetically.
-  * hint sorted can be `asc` or `desc` so in your `.sort()` method you'll have to specify what the user wants by pulling that off of the `sorted` param
-* write a `GET` request `/user-get-friends/:id` that returns a single users's friends.
+  * hint "direction" can be `asc` or `desc` so in your `.sort()` method you'll have to conditionally check `asc` for ascending or `desc` for descending according to the user `firstName`... specify what the user wants by pulling that off of the `sorted` param - OKAY (deal with conditional inside find().sort().exec()) - DONE √
+* write a `GET` request `/user-get-friends/:id` that returns a single users's friends. - OKAY √
 ### Extra Credit:
-* lastly write a `PUT` that updates a users `firstName` `lastName`
+* lastly write a `PUT` that updates a users `firstName` & `lastName`

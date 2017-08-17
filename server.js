@@ -15,14 +15,53 @@ app.use(bodyParser.json());
 
 // Your API will be built out here.
 
+// app.get('/users', (req, res) => {
+//   // we call the people collection by accessing the person Model
+//   Person.find({}, (err, users) => {
+//     // find({}) all 'users' that exist there at people
+//     if (err) {
+//       // send back the error via status code and a json version of the actual error
+//       res.status(STATUS_SERVER_ERROR);
+//       res.json({error: err});
+//     } else {
+//       // if the request was good and we're up and running..
+//       // send back all documents (people objects 'users') at people collection
+//       res.json(users);
+//     }
+//   });
+// });
+
 app.get('/users', (req, res) => {
   Person.find({}, (err, users) => {
     if (err) {
       res.status(STATUS_USER_ERROR);
-      res.json(err);
+      res.json({ error: err });
     } else {
       res.json(users)
     }
+  });
+});
+
+app.get('/users/:direction', (req, res) => {
+  const { direction } = req.params;
+  // console.log("Direction to sort by: ", direction);
+  let order = direction
+  Person.find({})
+  .sort({ firstName: direction })
+  .exec((err, users) => {
+    if (err) {
+      res.status(STATUS_USER_ERROR);
+      res.json({ error: err });
+    } else {
+      res.json(users);
+    }
+  });
+});
+
+app.get('/user-get-friends/:id', (req, res) => {
+  const { id } = req.params;
+  Person.find({ _id: id }, ({}, person) => {
+    //
   });
 });
 
