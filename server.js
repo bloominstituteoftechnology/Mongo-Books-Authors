@@ -69,6 +69,36 @@ app.get('/user-get-friends/:id', (req, res) => {
   });
 });
 
+// Use case: http://localhost:3000/posts/
+app.put('/users', (req, res) => {
+  res.json({ error: 'Please append an ID# to http://localhost:3000/users/###.' });
+});
+
+// Use case: http://localhost:3000/posts/Unique_ID_#
+// Postman body ~~> { "title": "modify", "contents": "modify" }
+app.put('/users/:id', (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName } = req.body;
+  const updates = { firstName, lastName };
+  if (!firstName) {
+    res.status(STATUS_USER_ERROR);
+    res.json({ error: 'Please modify the FIRST NAME.' });
+    return;
+  }
+  if (!lastName) {
+    res.status(STATUS_USER_ERROR);
+    res.json({ error: 'Please modify the LAST NAME.' });
+    return;
+  }
+  Person.updateOne({ _id: id }, updates, (err) => {
+    if (err) {
+      res.status(STATUS_SERVER_ERROR);
+      res.json(`There is no: ${err.value}`);
+    } else {
+      res.json(updates);
+    }
+  });
+});
 
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect(
