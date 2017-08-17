@@ -15,6 +15,17 @@ app.use(bodyParser.json());
 
 // Your API will be built out here.
 
+app.get('/users', (req, res) => {
+  Person.find({}, (err, users) => {
+    if (err) {
+      res.status(STATUS_USER_ERROR);
+      res.json(err);
+    } else {
+      res.json(users)
+    }
+  });
+});
+
 
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect(
