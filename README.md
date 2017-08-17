@@ -43,6 +43,7 @@
 * RUN: `node populateDbScript.js` get receive all your data. - DONE √
 ```console
 $  node populateDbScript.js
+    done
 ```
 
 * launch server: `nodemon server.js` - DONE √
