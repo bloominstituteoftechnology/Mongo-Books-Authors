@@ -45,7 +45,6 @@ app.get('/users', (req, res) => {
 app.get('/users/:direction', (req, res) => {
   const { direction } = req.params;
   // console.log("Direction to sort by: ", direction);
-  let order = direction
   Person.find({})
   .sort({ firstName: direction })
   .exec((err, users) => {
@@ -60,8 +59,13 @@ app.get('/users/:direction', (req, res) => {
 
 app.get('/user-get-friends/:id', (req, res) => {
   const { id } = req.params;
-  Person.find({ _id: id }, ({}, person) => {
-    //
+  Person.findById(id, (err, user) => {
+    if (err) {
+      res.status(STATUS_SERVER_ERROR);
+      res.json({ error: `There is no record of the id: ${err.value}.` });
+    } else {
+      res.json(user.friends);
+    }
   });
 });
 

@@ -30,44 +30,9 @@
   $  mkdir data
   $  mongod --dbpath data
     2017-08-16T19:57:50.638-0400 I CONTROL  [initandlisten] MongoDB starting : pid=6244 port=27017 dbpath=data 64-bit host=mixelpix.local
-    2017-08-16T19:57:50.639-0400 I CONTROL  [initandlisten] db version v3.4.7
-    2017-08-16T19:57:50.639-0400 I CONTROL  [initandlisten] git version: cf38c1b8a0a8dca4a11737581beafef4fe120bcd
-    2017-08-16T19:57:50.639-0400 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.2l  25 May 2017
-    2017-08-16T19:57:50.639-0400 I CONTROL  [initandlisten] allocator: system
-    2017-08-16T19:57:50.639-0400 I CONTROL  [initandlisten] modules: none
-    2017-08-16T19:57:50.639-0400 I CONTROL  [initandlisten] build environment:
-    2017-08-16T19:57:50.639-0400 I CONTROL  [initandlisten]     distarch: x86_64
-    2017-08-16T19:57:50.639-0400 I CONTROL  [initandlisten]     target_arch: x86_64
-    2017-08-16T19:57:50.639-0400 I CONTROL  [initandlisten] options: { storage: { dbPath: "data" } }
-    2017-08-16T19:57:50.639-0400 E NETWORK  [initandlisten] listen(): bind() failed Address already in use for socket: 0.0.0.0
-    :27017
+    ...
     2017-08-16T19:57:50.639-0400 E NETWORK  [initandlisten]   addr already in use
-    2017-08-16T19:57:50.639-0400 E NETWORK  [initandlisten] Failed to set up sockets during startup.
-    2017-08-16T19:57:50.639-0400 E STORAGE  [initandlisten] Failed to set up listener: InternalError: Failed to set up sockets
-    2017-08-16T19:57:50.639-0400 I NETWORK  [initandlisten] shutdown: going to close listening sockets...
-    2017-08-16T19:57:50.639-0400 I NETWORK  [initandlisten] shutdown: going to flush diaglog...
-    2017-08-16T19:57:50.639-0400 I CONTROL  [initandlisten] now exiting
-    2017-08-16T19:57:50.639-0400 I CONTROL  [initandlisten] shutting down with code:48
-    5 mixelpix Wed Aug 16 19:57:50$  mongod --dbpath data
-    2017-08-16T19:59:25.096-0400 I CONTROL  [initandlisten] MongoDB starting : pid=6280 port=27017 dbpath=data 64-bit host=mix
-    elpix.local
-    2017-08-16T19:59:25.097-0400 I CONTROL  [initandlisten] db version v3.4.7
-    2017-08-16T19:59:25.097-0400 I CONTROL  [initandlisten] git version: cf38c1b8a0a8dca4a11737581beafef4fe120bcd
-    2017-08-16T19:59:25.097-0400 I CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.0.2l  25 May 2017
-    2017-08-16T19:59:25.097-0400 I CONTROL  [initandlisten] allocator: system
-    2017-08-16T19:59:25.097-0400 I CONTROL  [initandlisten] modules: none
-    2017-08-16T19:59:25.097-0400 I CONTROL  [initandlisten] build environment:
-    2017-08-16T19:59:25.097-0400 I CONTROL  [initandlisten]     distarch: x86_64
-    2017-08-16T19:59:25.097-0400 I CONTROL  [initandlisten]     target_arch: x86_64
-    2017-08-16T19:59:25.097-0400 I CONTROL  [initandlisten] options: { storage: { dbPath: "data" } }
-    2017-08-16T19:59:25.097-0400 E NETWORK  [initandlisten] listen(): bind() failed Address already in use for socket: 0.0.0.0
-    :27017
-    2017-08-16T19:59:25.097-0400 E NETWORK  [initandlisten]   addr already in use
-    2017-08-16T19:59:25.097-0400 E NETWORK  [initandlisten] Failed to set up sockets during startup.
-    2017-08-16T19:59:25.097-0400 E STORAGE  [initandlisten] Failed to set up listener: InternalError: Failed to set up sockets
-    2017-08-16T19:59:25.097-0400 I NETWORK  [initandlisten] shutdown: going to close listening sockets...
-    2017-08-16T19:59:25.097-0400 I NETWORK  [initandlisten] shutdown: going to flush diaglog...
-    2017-08-16T19:59:25.097-0400 I CONTROL  [initandlisten] now exiting
+    ...
     2017-08-16T19:59:25.097-0400 I CONTROL  [initandlisten] shutting down with code:48
 ```
   * I restarted my computer and now the mongo server is running :D
@@ -87,6 +52,6 @@ $  node populateDbScript.js
 * write a `GET` request to `/users` that simply returns all the people. - DONE √
 * write a `GET` request to `/users/:direction` that takes the given string and returns back a list of sorted data alphebetically.
   * hint "direction" can be `asc` or `desc` so in your `.sort()` method you'll have to conditionally check `asc` for ascending or `desc` for descending according to the user `firstName`... specify what the user wants by pulling that off of the `sorted` param - OKAY (deal with conditional inside find().sort().exec()) - DONE √
-* write a `GET` request `/user-get-friends/:id` that returns a single users's friends. - OKAY √
+* write a `GET` request `/user-get-friends/:id` that returns a single users's friends. - DONE √
 ### Extra Credit:
 * lastly write a `PUT` that updates a users `firstName` & `lastName`
