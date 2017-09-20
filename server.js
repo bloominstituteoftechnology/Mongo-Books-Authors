@@ -52,8 +52,9 @@ app.get('/user-get-friends/:id', (req, res) => {
 
 app.put('/users/:id', (req, res) => {
   const { id } = req.params;
+  const { firstName, lastName, email } = req.body
   Person.findByIdAndUpdate(id, 
-    { $set: req.body }, 
+    { $set: { firstName, lastName, email }}, 
     { new:true, safe:true, upsert:true }, 
     (err, response) => {
       if (err) {
