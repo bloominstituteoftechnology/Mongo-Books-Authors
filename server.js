@@ -13,8 +13,58 @@ const STATUS_USER_ERROR = 422;
 
 app.use(bodyParser.json());
 
-// Your API will be built out here.
+app.get('/users', (req, res) => {
+  Person.find({}, (err, people) => {
+    if (err) {
+      res.status(STATUS_SERVER_ERROR);
+      res.json({ error: err });
+      return;
+    }
+    res.json(people);
+  });
+});
 
+app.get('/users/:direction', (req, res) => {
+  let { direction } = req.params;
+  if (direction === 'asc') direction = 1;
+  if (direction === 'desc') direction = -1;
+  Person.find({})
+    .sort({ firstName: direction })
+    .exec((err, people) => {
+      if (err) {
+        res.status(STATUS_SERVER_ERROR);
+        res.json({ error: err});
+        return;
+      }
+      res.json(people);
+    });
+});
+
+app.get('/user-get-friends/:id', (req, res) => {
+  const { id } = req.params;
+  Person.findById(id, (err, person) => {
+    if (err) {
+      res.status(STATUS_SERVER_ERROR);
+      res.json({ error: err });
+      return;
+    }
+    res.json(person.friends);
+  });
+});
+
+app.put('/users', (req, res) => {
+  const { id, firstName, lastName } = req.body;
+  Person.findById(id)
+    .update({firstName, lastName})
+    .exec((err, person) => {
+      if (err) {
+        res.status(STATUS_SERVER_ERROR);
+        res.json({ error: err });
+        return;
+      }
+      res.json(person);
+    });
+});
 
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect(
