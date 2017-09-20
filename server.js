@@ -15,6 +15,54 @@ app.use(bodyParser.json());
 
 // Your API will be built out here.
 
+app.get('/users', (req, res) => {
+  Person.find().exec((err, users) => {
+    if (err) {
+      res.status(500).send({ error: 'Server error looking for the people.' });
+      return;
+    }
+    res.json(users);
+  })
+});
+
+app.get('/users/:direction', (req, res) => {
+  const { direction } = req.params;
+  Person.find()
+    .sort({ 'firstName': direction })
+    .exec((err, users) => {
+      if (err) {
+        res.status(500).send({ error: 'Server error looking for the people.' });
+        return;
+      }
+      res.json(users);
+    });
+});
+
+app.get('/user-get-friends/:id', (req, res) => {
+  const { id } = req.params;
+  Person.findById(id)
+    .exec((err, user) => {
+      if (err) {
+        res.status(500).send({ error: 'Server error looking for the people.' });
+        return;
+      }
+      res.json(user.friends);
+    });
+});
+
+app.put('/users/:id', (req, res) => {
+  const { id } = req.params;
+  Person.findByIdAndUpdate(id, 
+    { $set: req.body }, 
+    { new:true, safe:true, upsert:true }, 
+    (err, response) => {
+      if (err) {
+        res.status(500).send({ error: 'Server error looking for the people.' });
+        return;
+      }
+      res.json(response);
+    })
+});
 
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect(
