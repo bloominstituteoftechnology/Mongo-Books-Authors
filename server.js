@@ -18,27 +18,26 @@ app.use(bodyParser.json());
 // `GET` request to `/users` that simply returns all the people.
 app.get('/users', (req, res) => {
   Person.find()
-    .catch(error => res.status(STATUS_USER_ERROR).json({ error }))
     .then(users => res.json(users.reduce((obj, user) => {
       obj[user.id] = user;
       return obj;
     }, {})))
+    .catch(error => res.status(STATUS_SERVER_ERROR).json({ error }))
 })
 
 // `GET` request to `/users/:direction` that takes the
 // given string and returns back a list of sorted data alphebetically.
 app.get('/users/:direction', (req, res) => {
-  // find users with firstName input match
   Person.find()
     .sort(req.params.direction.toLowerCase() === 'desc'
       ? '-firstName'
       : 'firstName'
     )
-    .catch(error => res.status(STATUS_USER_ERROR).json({ error }))
     .then(users => res.json(users.reduce((obj, user) => {
       obj[user.id] = user;
       return obj;
     }, {})))
+    .catch(error => res.status(STATUS_SERVER_ERROR).json({ error }))
 })
 
 
@@ -46,7 +45,6 @@ app.get('/users/:direction', (req, res) => {
 // that returns a single users's friends.
 app.get('/user-get-friends/:id', (req, res) => {
   Person.findById(req.params.id)
-    .catch(error => res.status(STATUS_USER_ERROR).json({ error }))
     .then(user => res.json(user.friends.reduce((obj, friend, index) => {
       obj.friends[index] = friend;
       return obj
@@ -55,22 +53,34 @@ app.get('/user-get-friends/:id', (req, res) => {
       lastName: user.lastName,
       friends: {}
     })))
+    .catch(error => res.status(STATUS_SERVER_ERROR).json({ error }))
 })
 
 
 // ### Extra Credit: 
 // `PUT` that updates a users `firstName` `lastName` 
 app.put('/user-update/:id', (req, res) => {
+    const { firstName, lastName } = req.body;
+    if (!firstName || !lastName) {
+      return res.status(STATUS_USER_ERROR).json({
+        error: {
+          message: 'A firstName and lastName must be included in the request',
+          missingFields: [
+            !firstName ? 'firstName' : null,
+            !lastName ? 'lastName' : null 
+          ].filter(nn => nn)
+        }
+      })
+    }
   Person.findById(req.params.id)
-    .catch(error => res.status(STATUS_USER_ERROR).json({ error }))
     .then(user => {
-      const { firstName, lastName } = req.body;
       user.firstName = firstName;
       user.lastName = lastName;
       user.save()
-        .catch(error => res.status(STATUS_USER_ERROR).json({ error }))
         .then(user => res.json(user))
+        .catch(error => res.status(STATUS_SERVER_ERROR).json({ error }))
     })  
+    .catch(error => res.status(STATUS_SERVER_ERROR).json({ error }))
 })
 
 
