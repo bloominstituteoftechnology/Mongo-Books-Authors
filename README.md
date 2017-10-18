@@ -23,6 +23,13 @@
 * When you open `models.js` you'll see we've already included your Schema. You're welcome. 
 * You'll also notice that this sprint comes with a `people.json` file, and a `populateDbScript.js`. this script will grab those `people` and add them into your db as long as you have your mongo server up and running. 
 * RUN: `node populateDbScript.js` get receive all your data.
+* If everything worked you should have received a console message "done", if this didn't print, you may have a flaw somewhere.
+
+### NOTE After populate script is done
+* Now after you have populated your DB, head into a new command window and RUN: `mongo` to open up the mongo shell.
+  * RUN: `show dbs` to list all the databases you have available to you.
+  * You should see a DB called people. RUN: `use people` and then `show collections`
+  * *NOTE*: In our `models.js` file we named our model `'Person'` but.. our collection is a collection of `'people'` Mongoose went ahead and assumed you'd like this. Pretty clever.. I think!
 
 ### Todos:
 * write a `GET` request to `/users` that simply returns all the people.
