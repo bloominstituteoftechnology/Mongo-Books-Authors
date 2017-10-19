@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
-  'mongodb://localhost/people',
+  'mongodb://localhost:27017/people',
   { useMongoClient: true }
 );
 const populate = () => {
