@@ -54,6 +54,11 @@ server.get("/user-get-friends/:id", async (req, res) => {
 server.put("/users/:id", async (req, res) => {
   const { id } = req.params;
   const { firstName, lastName } = req.body;
+  if (!firstName || !lastName) {
+    return res
+      .status(STATUS_USER_ERROR)
+      .json({ error: "You must supply first and last name" });
+  }
   try {
     const user = await Person.findByIdAndUpdate(
       id,
