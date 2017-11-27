@@ -41,6 +41,29 @@ server.get('/users/:direction', (req, res) => {
 
 server.get('/user-get-friends/:id', (req, res) => {
   const { id } = req.params;
+  Person.findById(id)
+    .select('friends')
+    .exec((err, friends) => {
+      if (err) {
+        res.status(422).json({ 'Could not find user by id: ': err });
+        return;
+      }
+      res.json(friends);
+    });
+});
+
+server.put('/users/:id', (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName } = req.body;
+  Person.findByIdAndUpdate(id, {firstName, lastName})
+  .exec((err, updatedUser) => {
+    if (err) {
+      res.status(422).json({ 'Could not find user by id: ': err });
+      return;
+    }
+    res.json(updatedUser);
+    }
+  );
 });
 
 
