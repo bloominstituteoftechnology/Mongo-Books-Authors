@@ -15,6 +15,66 @@ server.use(bodyParser.json());
 
 // Your API will be built out here.
 
+//write a `GET` request to `/users` that simply returns all the people.
+server.get('/users', (req, res) => {
+  Person.find({}, (err, users) => {
+    if (err) {
+      res
+      .status(STATUS_SERVER_ERROR)
+      .json({'something went wrong': err});
+      return;
+    }
+    res.json(users);
+  });
+});
+
+//write a `GET` request to `/users/:direction` that takes the given string and returns back a list of sorted data alphebetically.
+//hint direction can be `asc` or `desc` so in your `.sort()` method you'll have to conditionally check, and we are going to be sorting by user `firstName`
+server.get('/users/:direction', (req, res) => {
+  const { direction } = req.params;
+  Person.find({})
+  .sort({'firstName': direction})
+  .exec((err, sortedUsers) => {
+    if(err) {
+      res.status(STATUS_SERVER_ERROR).json({'something went wrong': err});
+      return;
+    }
+    res.json(sortedUsers);
+  });
+});
+
+//write a `GET` request `/user-get-friends/:id` that returns a single users's friends.
+server.get('/user-get-friends/:id', (req, res) => {
+  const { id } = req.params;
+  Person.findById(id)
+  .select('friends')
+  .exec((err, friends) => {
+    if(err) {
+      res.status(STATUS_SERVER_ERROR).json({'something went wrong': err});
+      return;
+    }
+    res.json(friends);
+  })
+})
+
+
+//Extra Credit: write a `PUT` that updates a users `firstName` `lastName` 
+server.put('/user-update/:id', (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName } = req.body;
+  Person.findByIdAndUpdate(id, {firstName, lastName}, {new: true})
+  .exec((err, updatedUser) => {
+    if(err) {
+      res.status(STATUS_SERVER_ERROR).json({'something went wrong': err});
+      return;
+    }
+    res.json(updatedUser);
+  })
+})
+
+
+
+
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect('mongodb://localhost/people', {
   useMongoClient: true
