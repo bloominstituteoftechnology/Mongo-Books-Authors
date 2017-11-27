@@ -15,6 +15,70 @@ server.use(bodyParser.json());
 
 // Your API will be built out here.
 
+server.get('/users', (req, res) => {
+  Person.find({}, (err, users) => {
+    if(err) {
+      res.status(STATUS_SERVER_ERROR).json({'Error': err });
+      return;
+    }
+    res.json(users);
+  });
+});
+
+
+server.get('/users/:direction', (req, res) => {
+  const { direction } = req.params;
+  Person.find({}).sort({ firstName: direction}).exec((err, users) => {
+      if(err) {
+        res.status(STATUS_USER_ERROR).json({ 'Error': err });
+        return;
+      }
+      res.json(users);
+  });
+});
+
+
+server.get('/user-get-friends/:id', (req, res) => {
+  const { id } = req.params;
+  if( !id ) {
+    res.status(STATUS_USER_ERROR).json({ 'Error' : 'You need to supply an id'});
+    return;
+  }
+  Person.findOne({ _id: id }, (err, user) => {
+    if(err) {
+      res.status(STATUS_USER_ERROR).json({ 'Error': err});
+      return;
+    }
+    res.json(user.friends);
+  })
+});
+
+
+server.put('/users/:id', (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName } = req.body;
+  const values = { firstName, lastName };
+
+  const updateBody = Object.keys(values).filter(key => values[key] !== undefined)
+  .reduce((updateBody, key) => {
+    updateBody[key] = values[key];
+    return updateBody;
+  }, {});
+
+
+
+
+  Person.findOneAndUpdate({ _id: id}, updateBody, { new: true}, (err, user) => {
+    if(err) {
+      res.status(422).json({ errors: [err]});
+      return;
+    }
+    res.status(200).json({ user });
+    return;
+  });
+  console.log('test');
+});
+
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect('mongodb://localhost/people', {
   useMongoClient: true
