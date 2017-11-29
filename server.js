@@ -15,6 +15,47 @@ server.use(bodyParser.json());
 
 // Your API will be built out here.
 
+server.get('/users/:direction', (req, res) => {
+  const { direction } = req.params; //asc desc
+  Person.find({})
+    .sort({ firstName: direction })
+    .exec((err, sortedUsers) => {
+      if (err) {
+        res.status(422).json({ 'Error getting/sorting your users: ': err });
+        return;
+      }
+      res.json(sortedUsers);
+    });
+});
+
+server.get('/users-get-friends/:id', (req, res) => {
+  const { id } = req.params;
+  Person.findById(id)
+    .select('friends')
+    .exec((err, friends) => {
+      if (err) {
+        res.status(422).json({ 'Could not find that id: ': err });
+        return;
+      }
+      res.json(friends);
+    });
+});
+
+server.put('/users/:id', (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName } = req.body;
+
+  Person.findByIdAndUpdate( id, { firstName, lastName }, { new: true }).exec(
+    (err, updatedUser) => {
+      if (err) {
+        res.status(422).json({ 'Could not find that id: ': err });
+        return;
+      }
+      res.json(updatedUser);
+    }
+  );
+});
+
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect('mongodb://localhost/people', {
   useMongoClient: true
