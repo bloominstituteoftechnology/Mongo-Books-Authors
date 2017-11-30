@@ -14,7 +14,56 @@ const STATUS_USER_ERROR = 422;
 server.use(bodyParser.json());
 
 // Your API will be built out here.
+server.get('/users', (req, res) => {
+  Person.find({}, (err, users) => {
+    if(err) {
+      res.status(STATUS_SERVER_ERROR).json({'error getting your users': err});
+    } else {
+      res.json(users);
+    }
+    return;
+  });
+});
 
+server.get('/users/:dir', (req, res) => {
+   const { dir }  = req.params;
+   Person.find({})
+    .sort({'email': dir})
+    .exec((err, sortedUsers) => {
+      if (err) {
+        res.status(STATUS_STATUS_ERROR).json({'error getting/sorting your users': err})
+      } else {
+        res.json(sortedUsers);
+      }
+      return;
+    }); 
+});
+
+server.get('/user-get-friends/:id', (req, res) => {
+  const { id } = req.params;
+  Person.findById(id)
+    .select('friends')
+    .exec((err, userFriends) => { 
+      if (err) {
+        res.status(STATUS_SERVER_ERROR).json({'error getting your user friend list ': err})
+      } else {
+        res.json(userFriends)
+      }
+    });
+});
+
+server.put('/users/:id', (req, res) => {
+  const { id } = req.params;
+  const { firstName, lastName } = req.body;
+  Person.findByIdAndUpdate(id, {firstName, lastName}, {new: true})
+  .exec((err, updatedUser) => {
+    if(err) {
+      res.status(422).json({'Could not find and update user': err});
+    } else {
+      res.json(updatedUser);
+    }
+  });
+});
 mongoose.Promise = global.Promise;
 const connect = mongoose.connect('mongodb://localhost/people', {
   useMongoClient: true
