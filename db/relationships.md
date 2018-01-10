@@ -50,3 +50,5 @@ order.lineItems === [all info about a line item]
     Resident = {
         city: { type: ObjectId 
     }
+
+    facebook 
