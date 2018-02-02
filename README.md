@@ -1,6 +1,7 @@
-# Mongo II Mini
+us# Mongo II Mini
 
 ## Topics To Cover
+
 * Schema Types
   * [String, Number, Buffer, Date, Boolean, Mixed, ObjectId, Array](http://mongoosejs.com/docs/schematypes.html)
 * [$ne](https://docs.mongodb.com/v3.2/reference/operator/query/ne/)
@@ -12,7 +13,6 @@
 * [$orderby](https://docs.mongodb.com/v3.2/reference/operator/meta/orderby/index.html)
 * [count](https://docs.mongodb.com/v3.2/reference/command/count/index.html)
 
-
 ## Running the Project
 
 * `cd` into your project directory.
@@ -20,21 +20,24 @@
 * fire up your `mongod` server from your root dir or create a `data` dir in this project to store your documents from mongo there. `mongod --dbpath data`.
 
 ### Mongoose Schema
-* When you open `models.js` you'll see we've already included your Schema. You're welcome. 
-* You'll also notice that this sprint comes with a `people.json` file, and a `populateDbScript.js`. this script will grab those `people` and add them into your db as long as you have your mongo server up and running. 
+
+* When you open `models.js` you'll see we've already included your Schema. You're welcome.
+* You'll also notice that this sprint comes with a `people.json` file, and a `populateDbScript.js`. this script will grab those `people` and add them into your db as long as you have your mongo server up and running.
 * RUN: `node populateDbScript.js` get receive all your data.
 * If everything worked you should have received a console message "done", if this didn't print, you may have a flaw somewhere.
 
 ### NOTE After populate script is done
+
 * Now after you have populated your DB, head into a new command window and RUN: `mongo` to open up the mongo shell.
   * RUN: `show dbs` to list all the databases you have available to you.
   * You should see a DB called people. RUN: `use people` and then `show collections`
-  * *NOTE*: In our `models.js` file we named our model `'Person'` but.. our collection is a collection of `'people'` Mongoose went ahead and assumed you'd like this. Pretty clever.. I think!
+  * _NOTE_: In our `models.js` file we named our model `'Person'` but.. our collection is a collection of `'people'` Mongoose went ahead and assumed you'd like this. Pretty clever.. I think!
 
 ### Todos:
+
 * write a `GET` request to `/users` that simply returns all the people.
 * write a `GET` request to `/users/:direction` that takes the given string and returns back a list of sorted data alphebetically.
   * hint direction can be `asc` or `desc` so in your `.sort()` method you'll have to conditionally check, and we are going to be sorting by user `firstName`
 * write a `GET` request `/user-get-friends/:id` that returns a single users's friends.
-### Extra Credit: 
-* lastly write a `PUT` that updates a users `firstName` `lastName` 
+  ### Extra Credit:
+* lastly write a `PUT` that updates a users `firstName` `lastName`
