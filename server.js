@@ -1,27 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
-const Person = require('./models.js');
 
-const port = process.env.PORT || 3000;
+const Author = require('./Authors/AuthorModel.js');
+const Book = require('./Books/BookModel.js');
 
 const server = express();
 
-// error status code constants
-const STATUS_SERVER_ERROR = 500;
-const STATUS_USER_ERROR = 422;
-
+server.use(helmet());
 server.use(bodyParser.json());
 
 // Your API will be built out here.
-
-mongoose.Promise = global.Promise;
-const connect = mongoose.connect('mongodb://localhost/people', {
-  useMongoClient: true
+server.get('/', function(req, res) {
+  res.status(200).json({ api: 'running' });
 });
-/* eslint no-console: 0 */
-connect.then(
+
+mongoose.connect('mongodb://localhost/library').then(
   () => {
+    const port = process.env.PORT || 3000;
     server.listen(port);
     console.log(`Server Listening on ${port}`);
   },
