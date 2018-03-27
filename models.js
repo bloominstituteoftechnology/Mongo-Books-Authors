@@ -24,7 +24,7 @@ const PersonSchema = ({
 
 module.exports = mongoose.model('Person', PersonSchema);
 
-/* pull in mongoose and write yoru schema here.
+/* pull in mongoose and write your schema here.
 *
 * we are building for this type of collection
 * {
